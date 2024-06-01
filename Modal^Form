@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacational-Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        .h6-style {
+            text-align: center;
+            font-size: 60px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+        }
+        .card {
+            background-color: rgb(255, 251, 0); 
+        }
+        .carousel-indicators-container {
+        position: relative;
+        margin-top: 10px; 
+        text-align: center;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        .carousel-indicators li {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: gray;
+        margin: 0 5px;
+        }
+        .carousel-indicators .active {
+            background-color: black;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .background-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: transparent; 
+            background-image: none; 
+        }
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            content: '‹'; 
+            font-size: 55px;
+            color: #000000; 
+        }
+        .carousel-control-next-icon::after {
+            content: '›'; 
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+    </style>
+</head>
+<body>
+    <img src="Image/Background_CP.jpg" alt="Background Image" class="background-img">
+    <div class="container">
+        <h6 class="h6-style">Vacation Spots</h6>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vacationModal">
+            EXPLORE NOW!
+        </button>
+        <div class="modal fade" id="vacationModal" tabindex="-1" aria-labelledby="vacationModalLabel" aria-hidden="true" data-bs-backdrop="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="vacationModalLabel">Plan Your Vacation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="vacationForm">
+                            <div class="mb-3">
+                                <label for="destination" class="form-label">Name of Destination</label>
+                                <input type="text" class="form-control" id="destination" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hours" class="form-label">Hours to Stay</label>
+                                <input type="number" class="form-control" id="hours" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="budget" class="form-label">Budget</label>
+                                <input type="number" class="form-control" id="budget" required>
+                            </div>
+                            <div id="validationMessage" class="text-danger"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="submitVacation()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card">
+                        <img src="Image/HundredIsland_WP.jpg" class="card-img-top" alt="Hundred Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Hundred Island</h5>
+                            <p class="card-text">Each islet is uniquely shaped and believed to have been formed millions of years ago, making the view of them even more special and rare. Some of the islands have white sand beaches, while some feature limestone cliffs.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $500 - $900</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/have-a-relaxing-day-at-pangasinan-bolinao-falls-3.jpg" class="card-img-top" alt="Bolinao Falls">
+                        <div class="card-body">
+                            <h5 class="card-title">Bolinao Falls</h5>
+                            <p class="card-text">All three falls are breathtaking, but they have varying heights, and the tallest is Bolinao Falls 1. Coupled with its turquoise waters, the falls’ elevation makes it the ideal spot for cliff-diving. Bolinao Falls 2 is more suited for swimming and has a pool with varying depths, including shallow spots for children. The last waterfall, Bolinao Falls 3, usually has fewer people, so it’s perfect if you’re seeking a more peaceful experience.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1000 - $1400</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\Bucas Grande Island_CC.jpg" class="card-img-top" alt="Bucas Grande Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Bucas Grande Island</h5>
+                            <p class="card-text">This island is packed with numerous caves and white sand beaches, waterfalls, mangroves, iron woods, inland lakes, fishing grounds, and corals. On the other hand, the Tojoman or Jellyfish Lagoon is home to millions of no-sting and friendly jellyfish.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1500 - $1900</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/naked-island_CC.jpg" class="card-img-top" alt="Naked Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Naked Island</h5>
+                            <p class="card-text">A 200-meter-long strip of powdery white sand located off the southern shore of Siargao Island in Surigao Del Norte. The white sand island is completely bare, hence its name. The Island is better suited for a quick visit during a Siargao island-hopping tour. Its bare beach also makes for a great spot to soak up some sun if you want to sunbathe. Meanwhile, the surrounding clear waters are perfect for swimming when you want to escape the sun's heat.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $550 - $950</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/puerto-princesa_CC.jpg" class="card-img-top" alt="Puerto Princesa Underground River">
+                        <div class="card-body">
+                            <h5 class="card-title">Puerto Princesa Underground River</h5>
+                            <p class="card-text">This subterranean river system is that it flows directly into the sea, with its brackish lower half subjected to tidal influence, distinguishing it as a significant natural global phenomenon.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1050 - $1450</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/tabon-cave_CC.jpg" class="card-img-top" alt="Tabon Cave a.k.a Cradle of Civilization">
+                        <div class="card-body">
+                            <h5 class="card-title">Tabon Cave a.k.a Cradle of Civilization</h5>
+                            <p class="card-text">The caves contain a large number of archaeological finds, including a skull cap that dates back thousands of years ago, as well as the Manunggul Jar, a burial jar listed as a national treasure.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1850 - $2250</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/rolling-hills-guimaras_CC.jpg" class="card-img-top" alt="Holy Family Hills">
+                        <div class="card-body">
+                            <h5 class="card-title">Holy Family Hills</h5>
+                            <p class="card-text">An ideal place for spiritual retreats and gatherings. It is Home to various religious structures that make it conducive to prayer and meditation, recollection and other religious activities that awaken one's soul and become a source of spiritual transformation.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $2600 - $3000</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/alubihod-beach_CC.jpg" class="card-img-top" alt="Alubihod Beach">
+                        <div class="card-body">
+                            <h5 class="card-title">Alubihod Beach</h5>
+                            <p class="card-text">This beach also lets you enjoy a wonderful view of the horizon that’s sitting side by side with nearby islands that are filled with lush green plants that are cool to the eyes.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $3000 - $3910</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/bataan-las-casas-filipinas-de-acuzar-day-tour_CC.jpg" class="card-img-top" alt="Las Casas Filipinas de Acuzar">
+                        <div class="card-body">
+                            <h5 class="card-title">Las Casas Filipinas de Acuzar</h5>
+                            <p class="card-text">Home to almost 40 original Spanish-Filipino Colonial structures, this historic treasure is the vision of Jose Acuzar, who collects, transplants, and restores the heritage of the Philippines.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1500 - $1890</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\bataan-world-war-ii-museum_CC.jpg" class="card-img-top" alt="Bataan World War II Museum">
+                        <div class="card-body">
+                            <h5 class="card-title">Bataan World War II Museum</h5>
+                            <p class="card-text">The museum was built as a tribute to our fallen heroes who made the ultimate sacrifice in 1942. It showcases tragic tidbits about the mentioned war, especially the horrendous Bataan Death March where thousands of Filipino and American soldiers perished.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1555 - $2500</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\entrance-to-enchanted-kingdom_CC.jpg" class="card-img-top" alt="Enchanted Kingdom">
+                        <div class="card-body">
+                            <h5 class="card-title">Enchanted Kingdom</h5>
+                            <p class="card-text">The theme park boasts of rides and attractions unique to the country in size and magnitude. These rides and attractions are located within seven meticulously themed zones interspersed with food and merchandise outlets and kiosks as well as various game stands that add to the “enchanting experience”, away from the day-to-day realities of life.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $2200 - $3100</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\250px-Jose_Rizal_Shrine_at_Fort_Santiago_CC.jpg" class="card-img-top" alt="Museo ni Jose Rizal (Bahay ni Rizal)">
+                        <div class="card-body">
+                            <h5 class="card-title">Museo ni Jose Rizal (Bahay ni Rizal)</h5>
+                            <p class="card-text">Francisco Mercado, Rizal's father, spent two years to build the original home of the Rizals. The Spanish government confiscated the home in 1891. Paciano Rizal, Jose Rizal's brother, reoccupied the home during the Filipino Revolution but was recaptured by the priests. The home was later sold and damaged during World War II and was soon demolished. The government bought what was left of the Rizals' home for ₱ 24,000.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $500 - $1600</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\Taal_Lake,_volcano_island_view_CC.jpg" class="card-img-top" alt="Taal Volcano">
+                        <div class="card-body">
+                            <h5 class="card-title">Taal Volcano</h5>
+                            <p class="card-text">A volcano located on the island of Luzon in the Philippines. It’s the second most active volcano in the Philippines with 33 historical eruptions.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $2700 - $2900</p>
+                            <select class="form-select" aria-label="Select Destination">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\taal-lake-view-from-afar_CC.jpg" class="card-img-top" alt="Tagaytay Picnic Grove">
+                        <div class="card-body">
+                            <h5 class="card-title">Tagaytay Picnic Grove</h5>
+                            <p class="card-text">One of Tagaytay's most popular tourist attractions. This is one of the most familiar memories that people have when they think of Tagaytay. It is one of the few places on the Tagaytay Ridge where travelers can see Taal Lake and the mighty Taal Volcano.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1400 - $z700</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\landing_CC.jpg" class="card-img-top" alt="MacArthur Leyte Landing Memorial National Park">
+                        <div class="card-body">
+                            <h5 class="card-title">MacArthur Leyte Landing Memorial National Park</h5>
+                            <p class="card-text">A protected area of the Philippines that commemorates the historic landing of General Douglas MacArthur in Leyte Gulf at the start of the campaign to recapture and liberate the Philippines from Japanese occupation on 20 October 1944.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $800 - $1200</p>                               
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\Leyte_Provincial_Capitol_CC.jpg" class="card-img-top" alt="Leyte Provincial Capitol">
+                        <div class="card-body">
+                            <h5 class="card-title">Leyte Provincial Capitol</h5>
+                            <p class="card-text">The seat of government of the Philippine province of Leyte until 2019. The historic building situated in Tacloban also served as the temporary national capitol in 1944 to 1945 during the World War II era.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1300 - $1600</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\marinduque-tres-reyes-island-hopping-tour-with-food-hotel-transfers_CC.jpg" class="card-img-top" alt="Tres Reyes Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Tres Reyes Island</h5>
+                            <p class="card-text">The name of the islands was derived from the Three Kings: Gaspar, Melchor, and Baltazar Islands which comprise the Tres Reyes Islands. Gaspar Island is the biggest and only with a short stretch of white sand beach where cottages are available. Melchor Island is mostly covered with trees with steep cliffs while Baltazar Island is the most famous dive site teeming with beautiful corals and a wide variety of marine life. Island hopping can be organized in the resorts on the mainland.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\marinduque-island-hopping-to-maniwaya-island-palad-sandbar-rock-formation-with-food-transfers_CC.jpg" class="card-img-top" alt="Maniwaya Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Maniwaya Island</h5>
+                            <p class="card-text">One of the most popular islands in the province. It is situated in the middle of Polo Island and Mompong Island. People often flock to Maniwaya to see and enjoy the white sand beaches.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\Beach_CC.jpeg" class="card-img-top" alt="Palani White Beach">
+                        <div class="card-body">
+                            <h5 class="card-title">Palani White Beach</h5>
+                            <p class="card-text">A stunning coastal destination known for its pristine beauty and tranquil atmosphere. The beach spans approximately 2 kilometers in length, with fine golden sand that is perfect for leisurely strolls and sunbathing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\catandayagan-falls_CC.jpg" class="card-img-top" alt="Catandayagan Falls">
+                        <div class="card-body">
+                            <h5 class="card-title">Catandayagan Falls</h5>
+                            <p class="card-text">This waterfall apart is its rare and mesmerizing feature – it flows gracefully into the sea, creating a captivating spectacle. Surrounded by rich marine biodiversity and lush vegetation, the area serves as a habitat for various species and offers visitors a chance to connect with nature.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="carousel-indicators-container">
+                <ol class="carousel-indicators">
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="9"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="10"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="11"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="12"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="13"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="14"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="15"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="16"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="17"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="18"></li>
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="19"></li>
+                </ol>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <script>
+        function submitVacation() {
+    var destination = document.getElementById('destination').value;
+    var hours = parseInt(document.getElementById('hours').value);
+    var budget = parseInt(document.getElementById('budget').value);
+    var isValidDestination = false;
+
+    switch (destination.toLowerCase()) {
+        case 'hundred island':
+            isValidDestination = true;
+            if (budget >= 500 && budget <= 900) {
+                alert('Redirecting to Hundred Island');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Hundred Island: $500 - $900';
+            }
+            break;
+        case 'bolinao falls':
+            isValidDestination = true;
+            if (budget >= 1000 && budget <= 1400) {
+                alert('Redirecting to Bolinao Falls');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Bolinao Falls: $1000 - $1400';
+            }
+            break;
+        case 'bucas grande island':
+            isValidDestination = true;
+            if (budget >= 1500 && budget <= 1900) {
+                alert('Redirecting to Bucas Grande Island');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Bucas Grande Island: $1500 - $1900';
+            }
+            break;
+        case 'naked island':
+            isValidDestination = true;
+            if (budget >= 550 && budget <= 950) {
+                alert('Redirecting to Naked Island');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Naked Island: $550 - $950';
+            }
+            break;
+        case 'puerto princesa underground river':
+            isValidDestination = true;
+            if (budget >= 1050 && budget <= 1450) {
+                alert('Redirecting to Puerto Princesa Underground River');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Puerto Princesa Underground River: $1050 - $1450';
+            }
+            break;
+        case 'tabon cave a.k.a cradle of civilization':
+            isValidDestination = true;
+            if (budget >= 1850 && budget <= 2250) {
+                alert('Redirecting to Tabon Cave a.k.a Cradle of Civilization');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Tabon Cave a.k.a Cradle of Civilization: $1850 - $2250';
+            }
+            break;
+        case 'holy family hills':
+            isValidDestination = true;
+            if (budget >= 2600 && budget <= 3000) {
+                alert('Redirecting to Holy Family Hills');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Holy Family Hills: $2600 - $3000';
+            }
+            break;
+        case 'alubihod beach':
+            isValidDestination = true;
+            if (budget >= 3000 && budget <= 3910) {
+                alert('Redirecting to Alubihod Beach');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Alubihod Beach: $3000 - $3910';
+            }
+            break;
+        case 'las casas filipinas de acuzar':
+            isValidDestination = true;
+            if (budget >= 1500 && budget <= 1890) {
+                alert('Redirecting to Las Casas Filipinas de Acuzar');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Las Casas Filipinas de Acuzar: $1500 - $1890';
+            }
+            break;
+        case 'bataan world war ii museum':
+            isValidDestination = true;
+            if (budget >= 1555 && budget <= 2500) {
+                alert('Redirecting to Bataan World War II Museum');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Bataan World War II Museum: $1555 - $2500';
+            }
+            break;
+        case 'enchanted kingdom':
+            isValidDestination = true;
+            if (budget >= 2200 && budget <= 3100) {
+                alert('Redirecting to Enchanted Kingdom');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Enchanted Kingdom: $2200 - $3100';
+            }
+            break;
+        case 'museo ni jose rizal (bahay ni rizal)':
+            isValidDestination = true;
+            if (budget >= 500 && budget <= 1600) {
+                alert('Redirecting to Museo ni Jose Rizal (Bahay ni Rizal)');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Museo ni Jose Rizal (Bahay ni Rizal): $500 - $1600';
+            }
+            break;
+        case 'taal volcano':
+            isValidDestination = true;
+            if (budget >= 2700 && budget <= 2900) {
+                alert('Redirecting to Taal Volcano');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Taal Volcano: $2700 - $2900';
+            }
+            break;
+        case 'tagaytay picnic grove':
+            isValidDestination = true;
+            if (budget >= 1400 && budget <= 2700) {
+                alert('Redirecting to Tagaytay Picnic Grove');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Tagaytay Picnic Grove: $1400 - $2700';
+            }
+            break;
+        case 'macarthur leyte landing memorial national park':
+            isValidDestination = true;
+            if (budget >= 800 && budget <= 1200) {
+                alert('Redirecting to MacArthur Leyte Landing Memorial National Park');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for MacArthur Leyte Landing Memorial National Park: $800 - $1200';
+            }
+            break;
+        case 'leyte provincial capitol':
+            isValidDestination = true;
+            if (budget >= 1300 && budget <= 1600) {
+                alert('Redirecting to Leyte Provincial Capitol');
+            } else {
+                document.getElementById('validationMessage').innerText = 'Budget range for Leyte Provincial Capitol: $1300 - $1600';
+            }
+            break;
+        case 'tres reyes island':
+            isValidDestination = true;
+            alert('Redirecting to Tres Reyes Island');
+            break;
+        case 'maniwaya island':
+            isValidDestination = true;
+            alert('Redirecting to Maniwaya Island');
+            break;
+        case 'palani white beach':
+            isValidDestination = true;
+            alert('Redirecting to Palani White Beach');
+            break;
+        case 'catandayagan falls':
+            isValidDestination = true;
+            alert('Redirecting to Catandayagan Falls');
+            break;
+        default:
+            document.getElementById('validationMessage').innerText = 'Destination not found.';
+            break;
+    }
+
+    if (isValidDestination) {
+        document.getElementById('validationMessage').innerText = ''; // Clear validation message if destination is valid
+    }
+        }
+    </script>
+</body>
+</html>
