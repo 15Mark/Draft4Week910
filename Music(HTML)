@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacational-Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        .h6-style {
+            text-align: center;
+            font-size: 60px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+        }
+        .card {
+            background-color: rgb(255, 251, 0); 
+        }
+        .carousel-indicators-container {
+        position: relative;
+        margin-top: 10px; 
+        text-align: center;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        .carousel-indicators li {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: gray;
+        margin: 0 5px;
+        }
+        .carousel-indicators .active {
+            background-color: black;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .background-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: transparent; 
+            background-image: none; 
+        }
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            content: '‹'; 
+            font-size: 55px;
+            color: #000000; 
+        }
+        .carousel-control-next-icon::after {
+            content: '›'; 
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            max-width: 300px;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <img src="Image/Background_CP.jpg" alt="Background Image" class="background-img">
+    <div class="container">
+        <h6 class="h6-style">Vacation Spots</h6>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vacationModal">
+            EXPLORE NOW!
+        </button>
+        <div class="modal fade" id="vacationModal" tabindex="-1" aria-labelledby="vacationModalLabel" aria-hidden="true" data-bs-backdrop="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="vacationModalLabel">Plan Your Vacation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="vacationForm">
+                            <div class="mb-3">
+                                <label for="destination" class="form-label">Name of Destination</label>
+                                <input type="text" class="form-control" id="destination" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hours" class="form-label">Hours to Stay</label>
+                                <input type="number" class="form-control" id="hours" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="budget" class="form-label">Budget</label>
+                                <input type="number" class="form-control" id="budget" required>
+                            </div>
+                            <div id="validationMessage" class="text-danger"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="submitVacation()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card">
+                        <img src="Image/HundredIsland_WP.jpg" class="card-img-top" alt="Hundred Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Hundred Island</h5>
+                            <p class="card-text">Each islet is uniquely shaped and believed to have been formed millions of years ago, making the view of them even more special and rare. Some of the islands have white sand beaches, while some feature limestone cliffs.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $500 - $900</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/have-a-relaxing-day-at-pangasinan-bolinao-falls-3.jpg" class="card-img-top" alt="Bolinao Falls">
+                        <div class="card-body">
+                            <h5 class="card-title">Bolinao Falls</h5>
+                            <p class="card-text">All three falls are breathtaking, but they have varying heights, and the tallest is Bolinao Falls 1. Coupled with its turquoise waters, the falls’ elevation makes it the ideal spot for cliff-diving. Bolinao Falls 2 is more suited for swimming and has a pool with varying depths, including shallow spots for children. The last waterfall, Bolinao Falls 3, usually has fewer people, so it’s perfect if you’re seeking a more peaceful experience.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1000 - $1400</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image\Bucas Grande Island_CC.jpg" class="card-img-top" alt="Bucas Grande Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Bucas Grande Island</h5>
+                            <p class="card-text">This island is packed with numerous caves and white sand beaches, waterfalls, mangroves, iron woods, inland lakes, fishing grounds, and corals. On the other hand, the Tojoman or Jellyfish Lagoon is home to millions of no-sting and friendly jellyfish.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $1500 - $1900</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <img src="Image/naked-island_CC.jpg" class="card-img-top" alt="Naked Island">
+                        <div class="card-body">
+                            <h5 class="card-title">Naked Island</h5>
+                            <p class="card-text">A 200-meter-long strip of powdery white sand located off the southern shore of Siargao Island in Surigao Del Norte. The white sand island is completely bare, hence its name. The Island is better suited for a quick visit during a Siargao island-hopping tour. Its bare beach also makes for a great spot to soak up some sun and enjoy a quick picnic.</p>
+                            <p class="card-text"><strong>Budget Range:</strong> $2000 - $2400</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-indicators-container">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="audio-player">
+        <audio id="audioElement" src="AudioBGM\Coldplay - Adventure Of A Lifetime (Audio) (320).mp3"></audio>
+        <div>
+            <button onclick="document.getElementById('audioElement').play()">Play</button>
+            <button onclick="document.getElementById('audioElement').pause()">Pause</button>
+            <button onclick="document.getElementById('audioElement').muted = !document.getElementById('audioElement').muted">Mute/Unmute</button>
+        </div>
+        <input type="range" min="0" max="1" step="0.1" value="1" onchange="document.getElementById('audioElement').volume = this.value">
+    </div>
+    <script>
+        function submitVacation() {
+            const destination = document.getElementById('destination').value;
+            const hours = document.getElementById('hours').value;
+            const budget = document.getElementById('budget').value;
+
+            if (destination && hours && budget) {
+                alert('Vacation submitted successfully!');
+                document.getElementById('vacationForm').reset();
+                document.getElementById('validationMessage').textContent = '';
+            } else {
+                document.getElementById('validationMessage').textContent = 'Please fill in all the fields.';
+            }
+        }
+    </script>
+</body>
+</html>
